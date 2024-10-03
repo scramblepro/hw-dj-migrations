@@ -1,0 +1,27 @@
+{% extends "school/base.html" %}
+{% load static %}
+
+{% block title %}Список учеников{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1 class="mb-4">Список учеников</h1>
+  <ul class="list-group">
+    {% for student in students %}
+      <li class="list-group-item">
+        <strong>{{ student.name }}</strong> ({{ student.group }})
+        {% if student.teachers.all %}
+          <ul class="mt-2">
+            <li><strong>Учителя:</strong></li>
+            {% for teacher in student.teachers.all %}
+              <li>{{ teacher.name }} - {{ teacher.subject }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="text-muted">Учителей нет</p>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
